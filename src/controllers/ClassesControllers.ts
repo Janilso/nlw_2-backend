@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import db from "../database/connection";
 import convertHourToMinutes from "../utils/convert";
+import {
+  USERS_TABLE,
+  CLASSES_TABLE,
+  CLASSES_SCHEDULE_TABLE,
+} from "../database/constantsDatabase";
 
 interface ScheduleItem {
   week_day: number;
@@ -18,25 +23,55 @@ export default class ClassesControllers {
       });
     }
 
-    const subject = filters.subject as string;
-    const time = filters.time as string;
-    const week_day = filters.week_day as string;
+    try {
+      const subject = filters.subject as string;
+      const time = filters.time as string;
+      const week_day = filters.week_day as string;
 
-    const timeInMinutes = convertHourToMinutes(time);
-    const classes = await db("classes")
-      .whereExists(function () {
-        this.select("class_schedule.*")
-          .from("class_schedule")
-          .whereRaw("`class_schedule`.`class_id` = `classes`.`id` ")
-          .whereRaw("`class_schedule`.`week_day` =  ?? ", [Number(week_day)])
-          .whereRaw("`class_schedule`.`from` <=  ?? ", [timeInMinutes])
-          .whereRaw("`class_schedule`.`to` >  ?? ", [timeInMinutes]);
-      })
-      .where("classes.subject", "=", subject)
-      .join("users", "classes.user_id", "=", "users.id")
-      .select(["classes.*", "users.*"]);
+      const timeInMinutes = convertHourToMinutes(time);
+      const classes = await db(CLASSES_TABLE.TABLE_NAME)
+        .whereExists(function () {
+          this.select(`${CLASSES_SCHEDULE_TABLE.TABLE_NAME}.*`)
+            .from(CLASSES_SCHEDULE_TABLE.TABLE_NAME)
+            .whereRaw(
+              `\`${CLASSES_SCHEDULE_TABLE.TABLE_NAME}\`.\`${CLASSES_SCHEDULE_TABLE.CLASS_ID}\` = \`${CLASSES_TABLE.TABLE_NAME}\`.\`${CLASSES_TABLE.ID}\``
+            )
+            .whereRaw(
+              `\`${CLASSES_SCHEDULE_TABLE.TABLE_NAME}\`.\`${CLASSES_SCHEDULE_TABLE.WEEK_DAY}\` = ??`,
+              [Number(week_day)]
+            )
+            .whereRaw(
+              `\`${CLASSES_SCHEDULE_TABLE.TABLE_NAME}\`.\`${CLASSES_SCHEDULE_TABLE.FROM}\` <= ??`,
+              [timeInMinutes]
+            )
+            .whereRaw(
+              `\`${CLASSES_SCHEDULE_TABLE.TABLE_NAME}\`.\`${CLASSES_SCHEDULE_TABLE.TO}\` > ??`,
+              [timeInMinutes]
+            );
+        })
+        .where(
+          `${CLASSES_TABLE.TABLE_NAME}.${CLASSES_TABLE.SUBJECT}`,
+          "=",
+          subject
+        )
+        .join(
+          USERS_TABLE.TABLE_NAME,
+          `${CLASSES_TABLE.TABLE_NAME}.${CLASSES_TABLE.USER_ID}`,
+          "=",
+          `${USERS_TABLE.TABLE_NAME}.${USERS_TABLE.ID}`
+        )
+        .select([
+          `${CLASSES_TABLE.TABLE_NAME}.*`,
+          `${USERS_TABLE.TABLE_NAME}.*`,
+        ]);
 
-    return response.json(classes);
+      return response.status(201).json(classes);
+    } catch (error) {
+      return response.status(400).json({
+        mensage: "Unexpected error while get classes",
+        error,
+      });
+    }
   }
 
   async create(request: Request, response: Response) {
@@ -53,7 +88,7 @@ export default class ClassesControllers {
     const trx = await db.transaction();
 
     try {
-      const insertedUsersIds = await trx("users").insert({
+      const insertedUsersIds = await trx(USERS_TABLE.TABLE_NAME).insert({
         name,
         avatar,
         whatsapp,
@@ -62,7 +97,7 @@ export default class ClassesControllers {
 
       const user_id = insertedUsersIds[0];
 
-      const insertedClassesIds = await trx("classes").insert({
+      const insertedClassesIds = await trx(CLASSES_TABLE.TABLE_NAME).insert({
         user_id,
         subject,
         cost,
@@ -79,16 +114,18 @@ export default class ClassesControllers {
         };
       });
 
-      await trx("class_schedule").insert(classShedule);
+      await trx(CLASSES_SCHEDULE_TABLE.TABLE_NAME).insert(classShedule);
       await trx.commit();
 
-      return response.status(201).send("{ mensage:  }");
-    } catch (err) {
-      console.log(err);
+      return response.status(201).json({
+        mensage: "created",
+      });
+    } catch (error) {
       trx.rollback();
-      return response
-        .status(400)
-        .json({ error: "Unexpected error while creating new class" });
+      return response.status(400).json({
+        mensage: "Unexpected error while creating new class",
+        error,
+      });
     }
   }
 }
