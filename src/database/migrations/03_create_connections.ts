@@ -15,7 +15,7 @@ export async function up(knex: Knex) {
 
     table
       .timestamp(CONNECTIONS_TABLE.CREATED_AT)
-      .defaultTo("CURRENT_TIMESTAMP")
+      .defaultTo(knex.raw("CURRENT_TIMESTAMP"))
       .notNullable();
   });
 }

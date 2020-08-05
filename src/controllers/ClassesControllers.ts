@@ -64,7 +64,6 @@ export default class ClassesControllers {
           `${CLASSES_TABLE.TABLE_NAME}.*`,
           `${USERS_TABLE.TABLE_NAME}.*`,
         ]);
-      // .select(["classes.*"]);
 
       return response.status(201).json(classes);
     } catch (error) {
