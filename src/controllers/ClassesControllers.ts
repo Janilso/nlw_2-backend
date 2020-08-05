@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import db from "../database/connection";
 import convertHourToMinutes from "../utils/convert";
+import {
+  USERS_TABLE,
+  CLASSES_TABLE,
+  CLASSES_SCHEDULE_TABLE,
+} from "../database/constantsDatabase";
 
 interface ScheduleItem {
   week_day: number;
@@ -53,7 +58,7 @@ export default class ClassesControllers {
     const trx = await db.transaction();
 
     try {
-      const insertedUsersIds = await trx("users").insert({
+      const insertedUsersIds = await trx(USERS_TABLE.TABLE_NAME).insert({
         name,
         avatar,
         whatsapp,
@@ -62,7 +67,7 @@ export default class ClassesControllers {
 
       const user_id = insertedUsersIds[0];
 
-      const insertedClassesIds = await trx("classes").insert({
+      const insertedClassesIds = await trx(CLASSES_TABLE.TABLE_NAME).insert({
         user_id,
         subject,
         cost,
@@ -79,16 +84,18 @@ export default class ClassesControllers {
         };
       });
 
-      await trx("class_schedule").insert(classShedule);
+      await trx(CLASSES_SCHEDULE_TABLE.TABLE_NAME).insert(classShedule);
       await trx.commit();
 
-      return response.status(201).send("{ mensage:  }");
-    } catch (err) {
-      console.log(err);
+      return response.status(201).json({
+        mensage: "created",
+      });
+    } catch (error) {
       trx.rollback();
-      return response
-        .status(400)
-        .json({ error: "Unexpected error while creating new class" });
+      return response.status(400).json({
+        mensage: "Unexpected error while creating new class",
+        error,
+      });
     }
   }
 }
