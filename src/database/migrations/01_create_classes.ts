@@ -1,20 +1,21 @@
 import Knex from "knex";
+import { CLASSES_TABLE, USERS_TABLE } from "../constantsDatabase";
 
 export async function up(knex: Knex) {
-  return knex.schema.createTable("classes", (table) => {
-    table.increments("id").primary();
-    table.string("subject").notNullable();
-    table.string("cost").notNullable();
+  return knex.schema.createTable(CLASSES_TABLE.TABLE_NAME, (table) => {
+    table.increments(CLASSES_TABLE.ID).primary();
+    table.string(CLASSES_TABLE.SUBJECT).notNullable();
+    table.string(CLASSES_TABLE.COST).notNullable();
     table
-      .integer("user_id")
+      .integer(CLASSES_TABLE.USER_ID)
       .notNullable()
-      .references("id")
-      .inTable("users")
+      .references(USERS_TABLE.ID)
+      .inTable(USERS_TABLE.TABLE_NAME)
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
   });
 }
 
 export async function down(knex: Knex) {
-  return knex.schema.dropTable("classes");
+  return knex.schema.dropTable(CLASSES_TABLE.TABLE_NAME);
 }
