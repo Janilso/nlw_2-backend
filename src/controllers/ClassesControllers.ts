@@ -77,25 +77,13 @@ export default class ClassesControllers {
   async all(request: Request, response: Response) {
     try {
       const classes = await db(CLASSES_TABLE.TABLE_NAME)
-        // .select("*")
-        // .from("classes");
         .select("*")
-        .from("class_schedule");
-
-      // .innerJoin("class_schedule", "class_schedule.class_id", "classes.id")
-      // .groupBy("classes.user_id");
-      // .where("classes.id", "=", "class_schedule.class_id");
-
-      // .leftJoin("classes", "classes.id", "class_schedule.class_id");
-      // .select([
-      //   `${CLASSES_TABLE.TABLE_NAME}.*`,
-      //   `${CLASSES_SCHEDULE_TABLE.TABLE_NAME}.*`,
-      // ]);
-      // .where(
-      //   `${CLASSES_TABLE.TABLE_NAME}.${CLASSES_TABLE.USER_ID}`,
-      //   "=",
-      //   `${CLASSES_SCHEDULE_TABLE.TABLE_NAME}.${CLASSES_SCHEDULE_TABLE.ID}`
-      // );
+        .whereExists(function () {
+          this.select(`${CLASSES_SCHEDULE_TABLE.TABLE_NAME}.*`)
+            .from("class_schedule")
+            .whereRaw(`class_schedule.class_id = classes.id`);
+        })
+        .join("users", "classes.user_id", "=", "users.id");
 
       return response.status(201).json(classes);
     } catch (error) {
