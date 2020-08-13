@@ -81,6 +81,7 @@ export default class ClassesControllers {
         // .from("classes");
         .select("*")
         .from("class_schedule");
+
       // .innerJoin("class_schedule", "class_schedule.class_id", "classes.id")
       // .groupBy("classes.user_id");
       // .where("classes.id", "=", "class_schedule.class_id");
