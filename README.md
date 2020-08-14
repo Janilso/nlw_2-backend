@@ -1,12 +1,22 @@
-#Funcionalidades
+# Projeto Backend da Next Level Week #2 - Rocketseat
 
-## Conexões
+- Funcionalidades
 
-- Rota para listar total de conexões;
-- Rota para criar uma conexão;
+  - Conexões
 
-## Aulas
+    - Rota para listar total de conexões;
+    - Rota para criar uma conexão;
 
-- Rota para criar uma aula;
-- Rota para listar aulas;
-  - Filtrar por matéria, dia da semana e horário;
+  - Aulas
+
+    - Rota para criar uma aula;
+    - Rota para listar aulas;
+      - Filtrar por matéria, dia da semana e horário;
+
+- Iniciar projeto
+
+  - Rodar no terminal local
+    `yarn install`
+
+  - Rodar no terminal local
+    `yarn migrate`
