@@ -1,0 +1,249 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2020-08-14T01:02:06.707Z",
+  "__export_source": "insomnia.desktop.app:v2020.3.3",
+  "resources": [
+    {
+      "_id": "req_9f5d2959070e42678ac7ca84830e86cf",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"user_id\": 1\n}"
+      },
+      "created": 1596602566256,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_f87233cddf32427291b6da92883aad25",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1596602566257,
+      "method": "POST",
+      "modified": 1596602641801,
+      "name": "Create Connections",
+      "parameters": [],
+      "parentId": "fld_d753ffe4222443068bc5667d1909feea",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:3333/connections",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_d753ffe4222443068bc5667d1909feea",
+      "created": 1596602588058,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1596602588058,
+      "modified": 1596602588058,
+      "name": "Connectons",
+      "parentId": "wrk_b7fcd667103e427cb000148d6bcde9b9",
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_b7fcd667103e427cb000148d6bcde9b9",
+      "created": 1596594742026,
+      "description": "",
+      "modified": 1596594742026,
+      "name": "NLW-2",
+      "parentId": null,
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_b7a63d34e5ce413b88a929a04093d4f9",
+      "authentication": {},
+      "body": {},
+      "created": 1596660470789,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1596601844564,
+      "method": "GET",
+      "modified": 1596660478327,
+      "name": "Get Connections",
+      "parameters": [],
+      "parentId": "fld_d753ffe4222443068bc5667d1909feea",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:3333/connections",
+      "_type": "request"
+    },
+    {
+      "_id": "req_2874f0b010d14bef93e88c714ac5ce1f",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"Janilso Rodrigues\",\n\t\"avatar\": \"https://avatars1.githubusercontent.com/u/40339129?s=460&v=4\",\n\t\"whatsapp\": \"99900000000\", \n\t\"bio\": \"Entusiasta das melhores tecnologias de química avançada.\",\n\t\"subject\": \"Quimica\",\n\t\"cost\": 20,\n\t\"schedule\": [\n\t\t{\"week_day\": 1, \"from\": \"12:00\", \"to\": \"14:00\"},\n\t\t{\"week_day\": 2, \"from\": \"10:00\", \"to\": \"18:00\"},\n\t\t{\"week_day\": 3, \"from\": \"11:00\", \"to\": \"12:00\"}\n\t]\n}"
+      },
+      "created": 1596597965474,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_79adcfece1c741fc8541ad0fdb9ab783",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1596601122871,
+      "method": "POST",
+      "modified": 1596653769613,
+      "name": "Create class",
+      "parameters": [],
+      "parentId": "fld_9991e54217a248539902dc04062cbbdb",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:3333/classes",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_9991e54217a248539902dc04062cbbdb",
+      "created": 1596602578088,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1596602578088,
+      "modified": 1596602578088,
+      "name": "Classes",
+      "parentId": "wrk_b7fcd667103e427cb000148d6bcde9b9",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_b1d87bda137d447ebd12e00dba59ee92",
+      "authentication": {},
+      "body": {},
+      "created": 1596601122821,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1596601122821,
+      "method": "GET",
+      "modified": 1596758227135,
+      "name": "List class",
+      "parameters": [
+        {
+          "description": "",
+          "id": "pair_22646c86e8c34c11b0587cf4192f86df",
+          "name": "week_day",
+          "value": "1"
+        },
+        {
+          "description": "",
+          "id": "pair_926b180344ef4a75a064d41fc9856bd5",
+          "name": "subject",
+          "value": "Artes"
+        },
+        {
+          "description": "",
+          "id": "pair_246ecbcf0f4846d088ddb06a434172d1",
+          "name": "time",
+          "value": "11:00"
+        }
+      ],
+      "parentId": "fld_9991e54217a248539902dc04062cbbdb",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:3333/classes",
+      "_type": "request"
+    },
+    {
+      "_id": "req_877d67d874d94433b1f29df6c2595fef",
+      "authentication": {},
+      "body": {},
+      "created": 1597191219179,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1596601122771,
+      "method": "GET",
+      "modified": 1597191227303,
+      "name": "List all class",
+      "parameters": [],
+      "parentId": "fld_9991e54217a248539902dc04062cbbdb",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:3333/classes/all",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f237045a9ca54a919bfb2e1b72bc935a",
+      "authentication": {},
+      "body": {},
+      "created": 1597363701889,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1596601122721,
+      "method": "GET",
+      "modified": 1597363706108,
+      "name": "List all subjects",
+      "parameters": [],
+      "parentId": "fld_9991e54217a248539902dc04062cbbdb",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:3333/classes/subjects",
+      "_type": "request"
+    },
+    {
+      "_id": "env_c8e7af3b3bde9edb358823eb77c22295a9ac4c53",
+      "color": null,
+      "created": 1596594742077,
+      "data": {},
+      "dataPropertyOrder": null,
+      "isPrivate": false,
+      "metaSortKey": 1596594742077,
+      "modified": 1596594742077,
+      "name": "Base Environment",
+      "parentId": "wrk_b7fcd667103e427cb000148d6bcde9b9",
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_c8e7af3b3bde9edb358823eb77c22295a9ac4c53",
+      "cookies": [],
+      "created": 1596594742078,
+      "modified": 1596594742078,
+      "name": "Default Jar",
+      "parentId": "wrk_b7fcd667103e427cb000148d6bcde9b9",
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_04a94a43a3dc4b9880e6bdc16cfa4f52",
+      "contentType": "yaml",
+      "contents": "",
+      "created": 1596594742030,
+      "fileName": "NLW-2",
+      "modified": 1596594742030,
+      "parentId": "wrk_b7fcd667103e427cb000148d6bcde9b9",
+      "_type": "api_spec"
+    }
+  ]
+}
