@@ -19,4 +19,4 @@
     `yarn install`
 
   - Rodar no terminal local
-    `yarn migrate`
+    `yarn knex:migrate`
